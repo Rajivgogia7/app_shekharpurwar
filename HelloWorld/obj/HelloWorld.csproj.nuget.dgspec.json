@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\spurwar\\source\\repos\\HelloWorld\\HelloWorld\\HelloWorld.csproj": {}
+    "D:\\Learning\\nagp\\k8s\\app-shekharpurwar\\HelloWorld\\HelloWorld.csproj": {}
   },
   "projects": {
-    "C:\\Users\\spurwar\\source\\repos\\HelloWorld\\HelloWorld\\HelloWorld.csproj": {
+    "D:\\Learning\\nagp\\k8s\\app-shekharpurwar\\HelloWorld\\HelloWorld.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\spurwar\\source\\repos\\HelloWorld\\HelloWorld\\HelloWorld.csproj",
+        "projectUniqueName": "D:\\Learning\\nagp\\k8s\\app-shekharpurwar\\HelloWorld\\HelloWorld.csproj",
         "projectName": "HelloWorld",
-        "projectPath": "C:\\Users\\spurwar\\source\\repos\\HelloWorld\\HelloWorld\\HelloWorld.csproj",
-        "packagesPath": "C:\\Users\\spurwar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\spurwar\\source\\repos\\HelloWorld\\HelloWorld\\obj\\",
+        "projectPath": "D:\\Learning\\nagp\\k8s\\app-shekharpurwar\\HelloWorld\\HelloWorld.csproj",
+        "packagesPath": "C:\\Users\\Shekhar\\.nuget\\packages\\",
+        "outputPath": "D:\\Learning\\nagp\\k8s\\app-shekharpurwar\\HelloWorld\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\spurwar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Shekhar\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,11 +25,11 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "\\\\mtaw1m-vmutl21\\lutwebnugetpackages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net50": {
+          "net5.0": {
+            "targetAlias": "net5.0",
             "projectReferences": {}
           }
         },
@@ -40,13 +40,27 @@
         }
       },
       "frameworks": {
-        "net50": {
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
-        }
-      },
-      "runtimes": {
-        "win7-x86": {
-          "#import": []
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }
