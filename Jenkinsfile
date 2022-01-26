@@ -43,7 +43,7 @@ pipeline {
             steps {
 				  echo "Start sonarqube analysis step"
                   withSonarQubeEnv('Test_Sonar') {
-                    bat "dotnet ${scannerHome}\\dotnet sonarscanner begin /k:sonar-${userName} /n:sonar-${userName} /v:1.0"
+                    bat "dotnet sonarscanner begin /k:sonar-${userName} /n:sonar-${userName} /v:1.0"
                   }
             }
         }
