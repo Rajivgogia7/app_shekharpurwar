@@ -23,6 +23,13 @@ pipeline {
     }
     
     stages {
+	    
+	    stage('Git Checkout') {
+            steps {
+                      git 'https://github.com/purwarshekhar/app-shekharpurwar.git'
+
+                   }
+				   }
         
     	stage ("nuget restore") {
             steps {	    
