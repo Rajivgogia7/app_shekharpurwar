@@ -53,7 +53,7 @@ pipeline {
 
         //Builds the project and all of its dependencies
         echo "Code Build"
-        bat 'dotnet build -c Release -o "${appName}/app/build"'
+        bat 'dotnet build -c Release'
       }
     }
 
