@@ -33,5 +33,13 @@ namespace HelloWorld.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+        public bool TestFunction(bool val)
+        {
+            //Added for coverage
+            Console.WriteLine("coverage");
+            return val;
+        }
     }
 }

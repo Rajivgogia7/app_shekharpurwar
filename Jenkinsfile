@@ -1,14 +1,14 @@
 pipeline {
     agent any
-		
+    
 	environment {
-		scannerHome = tool name: 'sonar_scanner_dotnet'
-		username = 'shekharpurwar'
-      appName = 'Helloworld'
+	scannerHome = 'sonar_scanner_dotnet'
+	username = 'shekharpurwar'
+    appName = 'Helloworld'
    	}	
    
 	options {
-        //Prepend all console output generated during stages with the time at which the line was emitted.
+    
 		timestamps()
 		
 		//Set a timeout period for the Pipeline run, after which Jenkins should abort the Pipeline
@@ -16,21 +16,18 @@ pipeline {
 		
 		buildDiscarder(logRotator(
 			// number of build logs to keep
-            numToKeepStr:'3',
+            numToKeepStr:'10',
             // history to keep in days
-            daysToKeepStr: '15'
+            daysToKeepStr: '30'
 			))
     }
     
     stages {
         
     	stage ("nuget restore") {
-            steps {
-		    
-                //Initial message
-                echo "Deployment pipeline started for - ${BRANCH_NAME} branch"
-
-                echo "Nuget Restore step"
+            steps {	    
+               
+                echo "Deployment started for - ${BRANCH_NAME} branch"                            
                 bat "dotnet restore"
             }
         }
@@ -41,9 +38,9 @@ pipeline {
             }
 
             steps {
-				  echo "Start sonarqube analysis step"
-                  withSonarQubeEnv('Test_Sonar') {
-                   bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:sonar-${userName} /n:sonar-${userName} /v:1.0"
+		            echo "Start sonarqube analysis step"
+                    withSonarQubeEnv('Test_Sonar') {
+                      bat "dotnet sonarscanner begin /k:sonar-${userName} /n:sonar-${userName} /v:1.0"
                   }
             }
         }
@@ -56,20 +53,29 @@ pipeline {
 				  
 				  //Builds the project and all of its dependencies
                   echo "Code Build"
-                  bat 'dotnet build -c Release -o "ProductManagementApi/app/build"'	
-                  bat 'dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -l:trx;LogFileName=ProductManagementApi.xml'	      
+                  bat 'dotnet build -c Release -o "${appName}/app/build"'	                       
             }
         }
+
+
+         stage('Test Case execution') {
+            steps {
+				  //Builds the project and all of its dependencies
+                  echo "Execute Test Cases"
+                  bat 'dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -l:trx;LogFileName=${appName}.xml'	      
+            }
+        }
+
 
 		stage('Stop sonarqube analysis'){
              when {
                 branch "master"
-            }
+             }
             
 			steps {
-				   echo "Stop sonarqube analysis"
-                   withSonarQubeEnv('Test_Sonar') {
-                   bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll end"
+				       echo "Stop sonarqube analysis"
+                       withSonarQubeEnv('Test_Sonar') {
+                       bat "dotnet sonarscanner end"
                    }
             }
         }
@@ -81,7 +87,7 @@ pipeline {
 
             steps {
                 echo "Release artifact step"
-                bat "dotnet publish -c Release -o ${appName}/app/${userName}"
+                 bat "dotnet publish -c Release -o ${appName}/app/${userName}"
             }
         }
     
