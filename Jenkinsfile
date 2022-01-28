@@ -59,6 +59,9 @@ pipeline {
     }
 
     stage('Test Case execution') {
+       when {
+        branch "master"
+      }
       steps {
         //Builds the project and all of its dependencies
         echo "Execute Test Cases"
