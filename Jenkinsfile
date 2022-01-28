@@ -24,13 +24,6 @@ pipeline {
 
   stages {
 
-    stage('Git Checkout') {
-      steps {
-        git 'https://github.com/purwarshekhar/app-shekharpurwar.git'
-
-      }
-    }
-
     stage("nuget restore") {
       steps {
 
@@ -47,7 +40,8 @@ pipeline {
       steps {
         echo "Start sonarqube analysis step"
         withSonarQubeEnv('Test_Sonar') {
-          bat "dotnet sonarscanner begin /k:sonar-${userName} /n:sonar-${userName} /v:1.0"
+          bat "dotnet sonarscanner begin /k:sonar-${userName} /n:sonar-${userName}  -d:sonar.cs.opencover.reportsPaths=TestProject/coverage.opencover.xml -d:sonar.cs.xunit.reportPaths=TestProject/TestResults/testresult.xml/v:1.0"
+         
         }
       }
     }
@@ -60,8 +54,15 @@ pipeline {
 
         //Builds the project and all of its dependencies
         echo "Code Build"
-        bat 'dotnet build -c Release -o "ProductManagementApi/app/build"'
-        bat 'dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -l:trx;LogFileName=ProductManagementApi.xml'
+        bat 'dotnet build -c Release'
+      }
+    }
+
+    stage('Test Case execution') {
+      steps {
+        //Builds the project and all of its dependencies
+        echo "Execute Test Cases"
+        bat 'dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -l:trx;LogFileName=${appName}.xml'
       }
     }
 
@@ -89,11 +90,15 @@ pipeline {
       }
     }
 
-    // stage('Kubernetes Deployment') {
-    // steps{
-    // bat "kubectl apply -f deployment.yaml"
-    // }
-    //}
+     stage('Kubernetes Deployment') {
+        when {
+        branch "master"
+      }
+       steps{
+          bat "kubectl apply -f deployment.yaml"
+          bat "kubectl apply -f service.yaml"
+      }
+    }
   }
 
   post {
