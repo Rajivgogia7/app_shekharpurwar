@@ -3,3 +3,7 @@
 ################################################################################
 
 /TestProject/obj
+/TestProject/bin/Debug/net5.0
+/HelloWorld/obj/Debug/net5.0
+/HelloWorld/bin/Debug/net5.0
+/.vs/HelloWorld/DesignTimeBuild
