@@ -17,14 +17,14 @@ pipeline {
     buildDiscarder(logRotator(
       // number of build logs to keep
       numToKeepStr: '10',
-      // history to keep in days
+      // Days to keep histry 
       daysToKeepStr: '30'
     ))
   }
 
   stages {
 
-    stage("nuget restore") {
+    stage("Nuget restore") {
       steps {
 
         echo "Deployment started for - ${BRANCH_NAME} branch"
@@ -86,7 +86,7 @@ pipeline {
 
       steps {
         echo "Release artifact step"
-        bat "dotnet publish -c Release -o ${appName}/app/${userName}"
+        bat "dotnet publish -c Release -o ${userName}/app/${appName}"
       }
     }
 
@@ -95,7 +95,9 @@ pipeline {
         branch "master"
       }
        steps{
+          echo "Start deplying deplyment.yaml file"
           bat "kubectl apply -f deployment.yaml"
+          echo "Start deplying serice.yaml file"
           bat "kubectl apply -f service.yaml"
       }
     }
