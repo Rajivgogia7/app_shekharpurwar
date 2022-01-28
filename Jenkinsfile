@@ -90,11 +90,15 @@ pipeline {
       }
     }
 
-    // stage('Kubernetes Deployment') {
-    // steps{
-    // bat "kubectl apply -f deployment.yaml"
-    // }
-    //}
+     stage('Kubernetes Deployment') {
+        when {
+        branch "master"
+      }
+       steps{
+          bat "kubectl apply -f deployment.yaml"
+          bat "kubectl apply -f service.yaml"
+      }
+    }
   }
 
   post {
