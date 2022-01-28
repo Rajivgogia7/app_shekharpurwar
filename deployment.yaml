@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloworld-api-deployment
+  namespace: kubernetes-cluster-shekharpurwar
+  labels:
+    app: helloworld-api
+spec:
+  replicas: 4
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: helloworld-api
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: helloworld-api
+    spec:
+      containers:
+      - name: helloworld-api
+        image: purwarshekhar/i-shekharpurwar-master:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "125m"
+       
+       
