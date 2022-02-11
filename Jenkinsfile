@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    scannerHome = 'sonar_scanner_dotnet'
+    scannerHome = tool name: 'sonar_scanner_dotnet'
     username = 'shekharpurwar'
     appName = 'Helloworld'
   }
