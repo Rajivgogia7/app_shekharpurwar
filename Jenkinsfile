@@ -40,7 +40,7 @@ pipeline {
       steps {
         echo "Start sonarqube analysis step"
         withSonarQubeEnv('Test_Sonar') {
-          bat "dotnet sonarscanner begin /k:sonar-${userName} /n:sonar-${userName}  -d:sonar.cs.opencover.reportsPaths=TestProject/coverage.opencover.xml -d:sonar.cs.xunit.reportPaths=TestProject/TestResults/testresult.xml/v:1.0"
+          bat "dotnet ${scannerHome}\\SonarScanner.MSBuild.dll begin /k:sonar-${userName} /n:sonar-${userName}  -d:sonar.cs.opencover.reportsPaths=TestProject/coverage.opencover.xml -d:sonar.cs.xunit.reportPaths=TestProject/TestResults/testresult.xml/v:1.0"
          
         }
       }
@@ -77,7 +77,9 @@ pipeline {
       steps {
         echo "Stop sonarqube analysis"
         withSonarQubeEnv('Test_Sonar') {
-          bat "dotnet sonarscanner end"
+         bat """
+					dotnet "${scannerHome}\\SonarScanner.MSBuild.dll" end
+					"""
         }
       }
     }
